@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 
+void main()
+{
+  // screen widgets:
+  runApp(
+      MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomeStateFul(),
+      )
+  );
+}
 
-dynamic item = "Welcome!";
 
 
 String texts(int choice)
@@ -19,94 +28,93 @@ String texts(int choice)
 }
 
 
-void generate_intro_text()
-{
-  var randomic = new Random();
-  item = texts(randomic.nextInt(5));
+
+
+class HomeStateFul extends StatefulWidget {
+  const HomeStateFul({Key? key}) : super(key: key);
+
+  @override
+  _HomeStateFulState createState() => _HomeStateFulState();
 }
 
+class _HomeStateFulState extends State<HomeStateFul> {
+  dynamic item = "";
 
-void generate_text() {
-  var randomic = new Random();
-  item = texts(randomic.nextInt(5));
-}
-
-
-
-void main()
-{
-    generate_text();
-    // screen widgets:
-    runApp(
-      MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          // top bar
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text(
-                      "Anonymouse Phrases",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.none,
-                        color: Colors.white,
-                      ),
-            ),
-            backgroundColor: Colors.black,
+  void generate_text() {
+    var randomic = new Random();
+    this.item = texts(randomic.nextInt(5));
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // top bar
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Anonymouse Phrases",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.none,
+            color: Colors.white,
           ),
+        ),
+        backgroundColor: Colors.black,
+      ),
 
-          // general background
-          backgroundColor: Colors.red[900],
+      // general background
+      backgroundColor: Colors.red[900],
 
-          // body
-          body: Center(
-            child:Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      // body
+      body: Center(
+        child:Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
 
-                  children: <Widget> [
-                    Image.asset(
-                      "images/fawkes.png",
-                      height: 300,
-                      width: 200,
-                      fit: BoxFit.contain,
-                      alignment: Alignment.center,
+              children: <Widget> [
+                Image.asset(
+                  "images/fawkes.png",
+                  height: 300,
+                  width: 200,
+                  fit: BoxFit.contain,
+                  alignment: Alignment.center,
+                ),
+
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text(
+                    "$item",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      fontFamily: "arial",
+                      fontStyle: FontStyle.italic,
                     ),
-
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text(
-                          "$item",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            fontFamily: "arial",
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ),
-                    TextButton(style:  TextButton.styleFrom(backgroundColor: Colors.black),
-                      onPressed: generate_text, child: Text(
-                         "Generate",
-                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                          fontFamily: "arial",
-                          fontStyle: FontStyle.normal,
-                    )),
-                  )
-                  ],
+                  ),
+                ),
+                TextButton(style:  TextButton.styleFrom(backgroundColor: Colors.black),
+                  onPressed: (){setState(() {
+                    generate_text();
+                  });}, child: Text(
+                      "Generate",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        fontFamily: "arial",
+                        fontStyle: FontStyle.normal,
+                      )),
                 )
-            ),
-          ),
+              ],
+            )
+        ),
+      ),
 
-          // buttom bar
-          bottomNavigationBar: const BottomAppBar(
-            color: Colors.black,
-            child: Padding(
+      // buttom bar
+      bottomNavigationBar: const BottomAppBar(
+          color: Colors.black,
+          child: Padding(
               padding: EdgeInsets.all(16),
               child:Text(
                   "create by Marcus",
@@ -118,9 +126,8 @@ void main()
                     color: Colors.white,
                   )
               )
-            )
-          ),
-        )
-      )
+          )
+      ),
     );
+  }
 }
